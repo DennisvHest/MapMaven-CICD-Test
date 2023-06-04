@@ -5,9 +5,6 @@ name: Publish Map Maven
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
   workflow_dispatch:
 
 jobs:
