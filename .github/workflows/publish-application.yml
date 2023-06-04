@@ -4,7 +4,6 @@
 name: Publish Map Maven
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
