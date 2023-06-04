@@ -8,8 +8,8 @@ on:
   
 env:
   SQUIRREL_LOCATION: "$HOME/.nuget/packages/clowd.squirrel/2.9.48"
-  PUBLISH_LOCATION: "$GITHUB_WORKSPACE/MapMaven/bin/Release/net7.0-windows10.0.19041.0/win10-x64/publish"
-  PACKAGE_LOCATION: "$RUNNER_TEMP/package"
+  PUBLISH_PATH: "$env:GITHUB_WORKSPACE/MapMaven/bin/Release/net7.0-windows10.0.19041.0/win10-x64/publish"
+  PACKAGE_PATH: "$env:RUNNER_TEMP/package"
 
 jobs:
   build:
@@ -27,24 +27,24 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: test
-      run: dir "$SQUIRREL_LOCATION"
+      run: dir "$env:SQUIRREL_PATH"
     - name: Publish
       run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release
-      working-directory: "$GITHUB_WORKSPACE/MapMaven"
+      working-directory: "$env:GITHUB_WORKSPACE/MapMaven"
     - name: Package build
       run: >
-        $SQUIRREL_LOCATION/tools/Squirrel.exe pack
+        $env:SQUIRREL_PATH/tools/Squirrel.exe pack
         --packId "MapMaven"
         --packVersion "0.9.6"
-        --packDirectory "$PUBLISH_LOCATION"
-        --releaseDir "$PACKAGE_LOCATION"
-        --icon "$PUBLISH_LOCATION/Platforms/Windows/trayicon.ico"
-        --appIcon "$PUBLISH_LOCATION/Platforms/Windows/trayicon.ico"
-        --splashImage "$PUBLISH_LOCATION/Platforms/Windows/installation.gif"
+        --packDirectory "$env:PUBLISH_PATH"
+        --releaseDir "$env:PACKAGE_PATH"
+        --icon "$env:PUBLISH_PATH/Platforms/Windows/trayicon.ico"
+        --appIcon "$env:PUBLISH_PATH/Platforms/Windows/trayicon.ico"
+        --splashImage "$env:PUBLISH_PATH/Platforms/Windows/installation.gif"
         --packAuthors "DennisvHest"
         --packTitle "Map Maven" 
     - name: Upload build artifact
       uses: actions/upload-artifact@v3
       with:
         name: mapmaven-package
-        path: "$PACKAGE_LOCATION"
+        path: "$env:PACKAGE_PATH"
