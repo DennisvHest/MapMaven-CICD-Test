@@ -7,7 +7,6 @@ on:
   workflow_dispatch:
   
 env:
-  SQUIRREL_PATH: "$HOME/.nuget/packages/clowd.squirrel/2.9.48"
   PUBLISH_PATH: "$env:GITHUB_WORKSPACE/MapMaven/bin/Release/net7.0-windows10.0.19041.0/win10-x64/publish"
   PACKAGE_PATH: "$env:RUNNER_TEMP/package"
 
@@ -27,13 +26,13 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: test
-      run: dir "$env:SQUIRREL_PATH"
+      run: dir $HOME/.nuget/packages/clowd.squirrel/2.9.48
     - name: Publish
       run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release
       working-directory: "$env:GITHUB_WORKSPACE/MapMaven"
     - name: Package build
       run: >
-        $env:SQUIRREL_PATH/tools/Squirrel.exe pack
+        $HOME/.nuget/packages/clowd.squirrel/2.9.48/tools/Squirrel.exe pack
         --packId "MapMaven"
         --packVersion "0.9.6"
         --packDirectory "$env:PUBLISH_PATH"
