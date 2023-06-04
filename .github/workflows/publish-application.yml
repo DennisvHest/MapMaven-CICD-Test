@@ -5,6 +5,11 @@ name: Publish Map Maven
 
 on:
   workflow_dispatch:
+  
+env:
+  SQUIRREL_LOCATION: "$HOME/.nuget/packages/clowd.squirrel/2.9.48"
+  PUBLISH_LOCATION: "$GITHUB_WORKSPACE/MapMaven/bin/Release/net7.0-windows10.0.19041.0/win10-x64/publish"
+  PACKAGE_LOCATION: "$RUNNER_TEMP/package"
 
 jobs:
   build:
@@ -22,13 +27,24 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: test
-      run: dir $HOME
+      run: dir "$SQUIRREL_LOCATION"
     - name: Publish
       run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release
-      working-directory: ./MapMaven
+      working-directory: "$GITHUB_WORKSPACE/MapMaven"
+    - name: Package build
+      run: >
+        $SQUIRREL_LOCATION/tools/Squirrel.exe pack
+        --packId "MapMaven"
+        --packVersion "0.9.6"
+        --packDirectory "$PUBLISH_LOCATION"
+        --releaseDir "$PACKAGE_LOCATION"
+        --icon "$PUBLISH_LOCATION/Platforms/Windows/trayicon.ico"
+        --appIcon "$PUBLISH_LOCATION/Platforms/Windows/trayicon.ico"
+        --splashImage "$PUBLISH_LOCATION/Platforms/Windows/installation.gif"
+        --packAuthors "DennisvHest"
+        --packTitle "Map Maven" 
     - name: Upload build artifact
       uses: actions/upload-artifact@v3
       with:
-        name: mapmaven-build
-        path: MapMaven/bin/Release/net7.0-windows10.0.19041.0/win10-x64/publish
-      
+        name: mapmaven-package
+        path: "$PACKAGE_LOCATION"
