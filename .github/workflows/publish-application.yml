@@ -28,3 +28,9 @@ jobs:
     - name: Publish
       run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release
       working-directory: ./MapMaven
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: mapmaven-build
+        path: MapMaven/bin/Release/net7.0-windows10.0.19041.0/win10-x64/publish
+      
