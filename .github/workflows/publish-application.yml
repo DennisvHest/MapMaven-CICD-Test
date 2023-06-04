@@ -4,16 +4,16 @@
 name: Publish Map Maven
 
 on:
-  workflow_dispatch:
-  
-env:
-  PUBLISH_PATH: "${{ github.workspace }}/MapMaven/bin/Release/net7.0-windows10.0.19041.0/win10-x64/publish"
-  PACKAGE_PATH: "${{ runner.temp }}/package"
+  workflow_dispatch:  
 
 jobs:
   build:
 
     runs-on: windows-latest
+    
+    env:
+      PUBLISH_PATH: "${{ github.workspace }}/MapMaven/bin/Release/net7.0-windows10.0.19041.0/win10-x64/publish"
+      PACKAGE_PATH: "${{ runner.temp }}/package"
 
     steps:
     - uses: actions/checkout@v3
