@@ -27,3 +27,4 @@ jobs:
       run: dotnet restore
     - name: Publish
       run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release
+      working-directory: ./MapMaven
