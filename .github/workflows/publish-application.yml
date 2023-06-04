@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   
 env:
-  SQUIRREL_LOCATION: "$HOME/.nuget/packages/clowd.squirrel/2.9.48"
+  SQUIRREL_PATH: "$HOME/.nuget/packages/clowd.squirrel/2.9.48"
   PUBLISH_PATH: "$env:GITHUB_WORKSPACE/MapMaven/bin/Release/net7.0-windows10.0.19041.0/win10-x64/publish"
   PACKAGE_PATH: "$env:RUNNER_TEMP/package"
 
