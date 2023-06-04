@@ -22,7 +22,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: test
-      run: dir "${{ env.NuGetDirectory }}"
+      run: dir "${{ github.workspace}}"
     - name: Publish
       run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release
       working-directory: ./MapMaven
