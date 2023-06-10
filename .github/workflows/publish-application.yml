@@ -33,14 +33,9 @@ jobs:
       run: >
         & "$HOME/.nuget/packages/clowd.squirrel/2.9.48/tools/Squirrel.exe" pack
         --packId "MapMaven"
-        --packVersion "0.9.6"
+        --packVersion "0.9.7"
         --packDirectory "${{ env.PUBLISH_PATH }}"
         --releaseDir "${{ runner.temp }}/package"
-        --icon "${{ env.PUBLISH_PATH }}/Platforms/Windows/trayicon.ico"
-        --appIcon "${{ env.PUBLISH_PATH }}/Platforms/Windows/trayicon.ico"
-        --splashImage "${{ env.PUBLISH_PATH }}/Platforms/Windows/installation.gif"
-        --packAuthors "DennisvHest"
-        --packTitle "Map Maven" 
     - name: Upload build artifact
       uses: actions/upload-artifact@v3
       with:
