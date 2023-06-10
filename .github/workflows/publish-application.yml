@@ -31,10 +31,10 @@ jobs:
       uses: TheDoctor0/zip-release@0.7.1
       with:
         filename: "${{ runner.temp }}/package/MapMaven-0.9.7.zip"
-        path: "${{ env.PUBLISH_PATH }}"
+        path: "${{ env.PUBLISH_PATH }}/"
     - name: Package build
       run: >
-        & "$HOME/.nuget/packages/clowd.squirrel/2.9.48/tools/Squirrel.exe" pack
+        & "$HOME/.nuget/packages/clowd.squirrel/2.9.42/tools/Squirrel.exe" pack
         --packId "MapMaven"
         --packVersion "0.9.7"
         --packDirectory "${{ env.PUBLISH_PATH }}"
