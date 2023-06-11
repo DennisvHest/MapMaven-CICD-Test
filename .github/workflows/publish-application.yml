@@ -4,7 +4,12 @@
 name: Publish Map Maven
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Semantic version for new release'
+        required: true
+        type: string
 
 jobs:
   build:
@@ -30,13 +35,13 @@ jobs:
     - name: Zip build
       uses: TheDoctor0/zip-release@0.7.1
       with:
-        filename: "${{ runner.temp }}/package/MapMaven-0.9.7.zip"
+        filename: "${{ runner.temp }}/package/MapMaven-${{ inputs.version }}.zip"
         path: "${{ env.PUBLISH_PATH }}/"
     - name: Package build
       run: >
         & "$HOME/.nuget/packages/clowd.squirrel/2.9.42/tools/Squirrel.exe" pack
         --packId "MapMaven"
-        --packVersion "0.9.7"
+        --packVersion "${{ inputs.version }}"
         --packDirectory "${{ env.PUBLISH_PATH }}"
         --releaseDir "${{ runner.temp }}/package"
     - name: Upload build artifact
