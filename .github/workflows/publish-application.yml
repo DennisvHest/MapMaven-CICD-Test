@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Semantic version for new release'
+        description: 'Version for new release'
         required: true
         type: string
 
@@ -44,6 +44,11 @@ jobs:
         --packVersion "${{ inputs.version }}"
         --packDirectory "${{ env.PUBLISH_PATH }}"
         --releaseDir "${{ runner.temp }}/package"
+        --icon "${{ env.PUBLISH_PATH }}/Platforms/Windows/trayicon.ico"
+        --appIcon "${{ env.PUBLISH_PATH }}/Platforms/Windows/trayicon.ico"
+        --splashImage "${{ env.PUBLISH_PATH }}/Platforms/Windows/installation.gif"
+        --packAuthors "DennisvHest"
+        --packTitle "Map Maven" 
     - name: Upload build artifact
       uses: actions/upload-artifact@v3
       with:
